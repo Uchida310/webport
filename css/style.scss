@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body{
+    background-color: #4972a1;
+}
+
 .app {
     height: 100vh; /*ビューポートサイズに対する割合*/
     display: flex; /*要素横並び*/
@@ -12,16 +16,6 @@
 }
 
 
-//背景動画に関するsass
-video {
-    position: fixed;
-    top: 0%;
-    left: 0%;
-    width: 100%;
-    height: 100%;
-    z-index: -100;
-    background-color: #66B98F;
-}
 
 
 .time-select,
@@ -48,6 +42,19 @@ video {
     }
 }
 
+.custum-display {
+    position: absolute;
+    text-align: center;
+    top: 10%;
+    display: flex;
+    color: white;
+
+ & p {
+     font-size: 1.3em;
+     margin: 0 10px;
+ }
+}
+
 
 .time-display {
     position: absolute;
@@ -57,8 +64,6 @@ video {
 }
 
 
-
-.sound-picker button,
 .time-select button {
     color: white;
     width: 30%;
@@ -78,30 +83,16 @@ video {
 *ease・・・変化の進行度合いeaseがデフォルト
 */
 
+.time-select button:nth-child(1){
+    background-color: #4972a1;
+    padding: 10px;
+}
+
 .time-select button:hover {
     color: black;
     background-color: white;
     opacity: 0.8;
 }
 
-.sound-picker button {
-    border: none;
-    height: 120px;
-    width: 120px;
-    border-radius: 50%;
-    padding: 30px;
-}
 
-.sound-picker button:nth-child(1) {
-    /*擬似クラス、親要素から見てn番目のみ適用する*/
-    background-color: #4972a1;
-}
 
-.sound-picker button:nth-child(2) {
-    background-color: #a14f49;
-}
-
-.sound-picker button img {
-    /*buttonに収まるようにimgに制限をかける*/
-    height: 100%;
-}

@@ -1,5 +1,5 @@
 const app = () => {
-    const song = document.querySelector('.song'); //songクラスを取得
+  
     const play = document.querySelector('.play'); //playクラスを取得
 
     const outline = document.querySelector('.moving-outline circle') //svgに設定したクラス

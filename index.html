@@ -6,25 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     <title>Concentrate App</title>
 </head>
 
 <body>
     <div class="app">
-        <div class="video-container">
-            <video loop>
-                <source src="./video/rain.mp4" type="video/mp4"> 
-            </video>
-        </div>
         <div class="time-select">
-            <button data-time="10">5 Minutes</button>
-            <button data-time="600">10 Minutes</button>
-            <button data-time="900">15 Minutes</button>
+            <button data-time="60">set interval</button>
+            <button data-time="300">set study</button>
+            <button data-time="1500">set default</button>
+            <button class="setSet">Set</button>
         </div>
         <div class="player-container">
-            <audio class="song">
-                <source src="./sounds/rain.mp3">
-            </audio>
+            <div class="custum-display">
+                <p class="interval-display">Study<br>0:00</p>
+                <p class="study-display">Interval<br>0:00</p>
+            </div>
             <img class="play" src="./svg/play.svg" alt="play">
             <svg class="track-outline" width="453" height="453" viewBox="0 0 453 453" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="226.5" cy="226.5" r="216.5" stroke="white" stroke-width="20" />
@@ -35,12 +33,24 @@
             <h3 class="time-display">0:00</h3>
         </div>
         <div class="sound-picker">
-            <button data-sound="./sounds/rain.mp3" data-video="./video/rain.mp4">
-                <img src="./svg/rain.svg">
-            </button>
-            <button data-sound="./sounds/beach.mp3" data-video="./video/beach.mp4">
-                <img src="./svg/beach.svg" alt="">
-            </button>
+            <div class="study-picker">
+                <div class="study-video">
+
+                </div>
+                <form action="">
+                    <input class="study-bgm" type="url" size="10" value="勉強中に再生したい動画のURL">
+                    <button>Submit</button> <br>
+                </form>
+            </div>
+            <div class="interval-picker">
+                <div class="interval-video">
+
+                </div>
+                <form action="">
+                    <input class="study-bgm" type="url" size="10" value="勉強中に再生したい動画のURL">
+                    <button>Submit</button> <br>
+                </form>
+            </div>
         </div>
     </div>
     <script src="js/app.js"></script>
