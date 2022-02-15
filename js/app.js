@@ -1,4 +1,5 @@
-//https://designsupply-web.com/media/programming/4823/
+//http://www.openspc2.org/kouza_js/083/index.html
+//https://qiita.com/nntsugu/items/640762a7ba8fd7cc50dd
 //このサイトを参考にiframeのDOMを操作する
 const app = () => {
   
