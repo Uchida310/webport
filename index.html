@@ -13,15 +13,25 @@
 <body>
     <div class="app">
         <div class="time-select">
-            <button data-time="60">set interval</button>
-            <button data-time="300">set study</button>
-            <button data-time="1500">set default</button>
-            <button class="setSet">Set</button>
+            <button class="interval-button">set interval</button>
+            <button class="study-button">set study</button>
+            <button class="default-button">set default</button>
+            <button class="set-button">Set</button>
         </div>
         <div class="player-container">
             <div class="custum-display">
-                <p class="study-display">Study<br>0:00</p>
-                <p class="interval-display">Interval<br>0:00</p>
+                <div>
+                    <p>Study</p>
+                    <p class="study-display">0:00</p>
+                </div>
+                <div>
+                    <p>Interval</p>
+                    <p class="interval-display">0:00</p>
+                </div>
+                <div>
+                    <p>Set</p>
+                    <p class="set-display">0</p>
+                </div>
             </div>
             <img class="play" src="./svg/play.svg" alt="play">
             <svg 
@@ -42,6 +52,16 @@
                 <circle cx="226.5" cy="226.5" r="216.5" stroke="#018EBA" stroke-width="20" />
             </svg>
             <h3 class="time-display">0:00</h3>
+            <div class="count-display">
+                <div>
+                    <p>Study</p>
+                    <p class="count-study-display">0:00</p>
+                </div>
+                <div>
+                    <p>Interval</p>
+                    <p class="count-interval-display">0:00</p>
+                </div>
+            </div>
         </div>
         <div class="sound-picker">
             <div class="study-picker">

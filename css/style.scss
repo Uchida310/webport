@@ -42,7 +42,8 @@ body{
     }
 }
 
-.custum-display {
+.custum-display,
+.count-display {
     position: absolute;
     text-align: center;
     top: 10%;
@@ -53,6 +54,10 @@ body{
      font-size: 1.3em;
      margin: 0 10px;
  }
+}
+
+.count-display{
+    top: 85%;
 }
 
 

@@ -2,7 +2,8 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 body {
@@ -12,50 +13,78 @@ body {
 .app {
   height: 100vh;
   /*ビューポートサイズに対する割合*/
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   /*要素横並び*/
-  justify-content: space-evenly;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
   /*要素を均等に振り分ける*/
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .time-select,
 .sound-picker,
 .player-container {
   height: 80%;
-  flex: 1;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   /*要素を均等に配分*/
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   /*要素を縦に*/
-  justify-content: space-evenly;
-  align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .player-container {
   position: relative;
 }
+
 .player-container svg {
   position: absolute;
   height: 50%;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(-90deg);
+  -webkit-transform: translate(-50%, -50%) rotate(-90deg);
+          transform: translate(-50%, -50%) rotate(-90deg);
   /*アニメーションの開始位置を調整*/
   pointer-events: none;
   /*svgファイルのhover時のイベントを削除*/
 }
 
-.custum-display {
+.custum-display,
+.count-display {
   position: absolute;
   text-align: center;
   top: 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   color: white;
 }
-.custum-display p {
+
+.custum-display p,
+.count-display p {
   font-size: 1.3em;
   margin: 0 10px;
+}
+
+.count-display {
+  top: 85%;
 }
 
 .time-display {
@@ -75,6 +104,7 @@ body {
   /*要素にカーソルがある場合*/
   border-radius: 5px;
   font-size: 20px;
+  -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   /*下記に説明を記述*/
 }
