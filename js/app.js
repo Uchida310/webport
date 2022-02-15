@@ -1,3 +1,5 @@
+//https://designsupply-web.com/media/programming/4823/
+//このサイトを参考にiframeのDOMを操作する
 const app = () => {
   
     const play = document.querySelector('.play'); //playクラスを取得
@@ -11,7 +13,6 @@ const app = () => {
     const intervalDisplay = document.querySelector('.interval-display');
     const setCountDisplay = document.querySelector('.set-display');
     const timeDisplay = document.querySelector('.time-display');
-
     const countStudyDisplay = document.querySelector('.count-study-display');
     const countIntervalDisplay = document.querySelector('.count-interval-display');
 
@@ -111,7 +112,7 @@ const app = () => {
 
 
                 //isStudyがアクティブなら
-                if(isStudy){
+                if(isStudy && sumCount >= 0){
                     calcStudy -= 1000;
                     let studySeconds = Math.floor(calcStudy % 60000 / 1000);
                     let studyMinutes = Math.floor(calcStudy / 60000);
@@ -121,10 +122,11 @@ const app = () => {
                         calcStudy = sumStudy;
                         isInterval = true;
                         isStudy = false;
+                        calcInterval += 1000;
                     }
                 }
                 //isIntervalがアクティブなら
-                if(isInterval){
+                if(isInterval && sumCount > 0){
                     calcInterval -= 1000;
                     let intervalSeconds = Math.floor(calcInterval % 60000 / 1000);
                     let intervalMinutes = Math.floor(calcInterval / 60000);
@@ -134,6 +136,7 @@ const app = () => {
                         calcInterval = sumInterval;
                         isInterval = false;
                         isStudy = true;
+                        sumCount--;
                     }
                 }
 
