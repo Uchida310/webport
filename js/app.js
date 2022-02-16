@@ -1,6 +1,8 @@
 //http://www.openspc2.org/kouza_js/083/index.html
 //https://qiita.com/nntsugu/items/640762a7ba8fd7cc50dd
-//このサイトを参考にiframeのDOMを操作する
+//このサイトを参考にiframeのDOMを操作する→クリックジャッキングで非推薦
+//https://teratail.com/questions/41623
+//ユーザーが入力したURLのiframeを取得しそれを要素に入れる→次の候補
 const app = () => {
   
     const play = document.querySelector('.play'); //playクラスを取得
@@ -27,6 +29,14 @@ const app = () => {
     //円の長さを取得・・・約1359
     // const outlineLength = outline.getTotalLength();
 
+    const setStudyVideo = document.querySelector('.set-study-bgm');
+    const setIntervalVideo = document.querySelector('.set-interval-bgm');
+
+    const studyIframe = document.querySelector('.study-video');
+    const intervalIframe = document.querySelector('.interval-video');
+
+    let test = studyIframe.contentDocument.location.replace('https://www.youtube.com/embed/f1MMb3R1-qc?loop=1&playlist=f1MMb3R1-qc');
+    console.log(studyIframe);
     //時間計算用の変数
     let sumInterval = 0;
     let sumStudy = 0;
