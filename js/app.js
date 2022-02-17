@@ -1,8 +1,4 @@
-//http://www.openspc2.org/kouza_js/083/index.html
-//https://qiita.com/nntsugu/items/640762a7ba8fd7cc50dd
-//このサイトを参考にiframeのDOMを操作する→クリックジャッキングで非推薦
-//https://teratail.com/questions/41623
-//ユーザーが入力したURLのiframeを取得しそれを要素に入れる→次の候補
+
 const app = () => {
   
     const play = document.querySelector('.play'); //playクラスを取得
@@ -35,8 +31,21 @@ const app = () => {
     const studyIframe = document.querySelector('.study-video');
     const intervalIframe = document.querySelector('.interval-video');
 
-    let test = studyIframe.contentDocument.location.replace('https://www.youtube.com/embed/f1MMb3R1-qc?loop=1&playlist=f1MMb3R1-qc');
-    console.log(studyIframe);
+
+
+    //ユーザー入力URL
+    const studyURLBox = document.querySelector('.study-bgm');
+
+    
+    //iframeのsrcを取得
+    let replaceStudyVideo = studyIframe.contentDocument.location;
+    //
+    let targetWindow = document.querySelector('.study-video').contentWindow;
+
+    //APIコマンド送信用関数
+    const ag2ytControl = function(action,arg=null){
+        targetWindow.postMessage('{"event":"command", "func":"'+action+'", "args":'+arg+'}', '*');
+    };
     //時間計算用の変数
     let sumInterval = 0;
     let sumStudy = 0;
@@ -86,6 +95,19 @@ const app = () => {
         }
     });
 
+    //再生動画のロジック
+    setStudyVideo.addEventListener('click', ()=>{
+        let studyValue = studyURLBox.value;
+        iframeFormat(studyValue);
+        replaceStudyVideo.replace(studyValue);
+
+        //iframeで表示されたwindowオブジェクトを取得
+
+    }, {once: true});
+
+
+
+
     //テスト用ボタン:合計時間を出力する
     setTimeButton.addEventListener('click', ()=>{
         sumCount++;
@@ -110,6 +132,7 @@ const app = () => {
     */
     //クリックされたら関数を実行
     play.addEventListener('click', () => {
+        ag2ytControl('playVideo');
         play.src = './svg/pause.svg';
         isStudy = true;
         calcStudy = sumStudy;
@@ -160,12 +183,6 @@ const app = () => {
         
     },{once: true});
 
-    //音声ボタン毎の値をセットしていく
-    
-
-    
-
-
     
     // song.ontimeupdate = () => { //曲が再生されている間だけ実行される
     //     let currentTime = sumTime;
@@ -186,7 +203,10 @@ const app = () => {
 
     // }
     
-
+    function iframeFormat(studyValue){
+        studyValue += '?enablejsapi=1';
+        console.log(studyValue);
+    }
 }
 
 app();
