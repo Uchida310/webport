@@ -28,24 +28,11 @@ const app = () => {
     const setStudyVideo = document.querySelector('.set-study-bgm');
     const setIntervalVideo = document.querySelector('.set-interval-bgm');
 
-    const studyIframe = document.querySelector('.study-video');
-    const intervalIframe = document.querySelector('.interval-video');
-
-
-
     //ユーザー入力URL
     const studyURLBox = document.querySelector('.study-bgm');
+    const intervalURLBox = document.querySelector('.interval-bgm');
 
-    
-    //iframeのsrcを取得
-    let replaceStudyVideo = studyIframe.contentDocument.location;
-    //
-    let targetWindow = document.querySelector('.study-video').contentWindow;
 
-    //APIコマンド送信用関数
-    const ag2ytControl = function(action,arg=null){
-        targetWindow.postMessage('{"event":"command", "func":"'+action+'", "args":'+arg+'}', '*');
-    };
     //時間計算用の変数
     let sumInterval = 0;
     let sumStudy = 0;
@@ -61,6 +48,34 @@ const app = () => {
     const studyTime = intervalTime * 5;
     const podomoroStudyTime = intervalTime * 25;
     const podomoroIntervalTime = intervalTime * 5;
+
+
+    ////////////////////////API操作用//////////////////////////////
+
+    const botan = play;
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    console.log(firstScriptTag);
+
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    let player;
+
+
+      
+    
+    botan.addEventListener('click', () => {
+        
+        if(botan.classList.contains('play')){
+            player.pauseVideo();
+        }else{
+            player.playVideo();
+        }
+        botan.classList.toggle('play');
+    });
+
+    ////////////////////////////////////////////////////
 
     //勉強時間をセット
     intervalTimeButton.addEventListener('click', ()=>{
@@ -98,14 +113,25 @@ const app = () => {
     //再生動画のロジック
     setStudyVideo.addEventListener('click', ()=>{
         let studyValue = studyURLBox.value;
-        iframeFormat(studyValue);
-        replaceStudyVideo.replace(studyValue);
-
-        //iframeで表示されたwindowオブジェクトを取得
-
+        studyValue = iframeFormat(studyValue);
+        player = new YT.Player('iframe1', {
+            width: 250,
+            height: 250,
+            videoId: studyValue,
+          });
+        console.log(studyValue);
     }, {once: true});
 
-
+    setIntervalVideo.addEventListener('click', ()=>{
+        let intervalValue = intervalURLBox.value;
+        intervalValue = iframeFormat(intervalValue);
+        player = new YT.Player('iframe2', {
+            width: 250,
+            height: 250,
+            videoId: intervalValue,
+          });
+        console.log(intervalValue);
+    }, {once: true});
 
 
     //テスト用ボタン:合計時間を出力する
@@ -132,7 +158,6 @@ const app = () => {
     */
     //クリックされたら関数を実行
     play.addEventListener('click', () => {
-        ag2ytControl('playVideo');
         play.src = './svg/pause.svg';
         isStudy = true;
         calcStudy = sumStudy;
@@ -184,29 +209,16 @@ const app = () => {
     },{once: true});
 
     
-    // song.ontimeupdate = () => { //曲が再生されている間だけ実行される
-    //     let currentTime = sumTime;
-    //     let elapsed = fakeDuration - currentTime;
-    //     let seconds = Math.floor(elapsed % 60);
-    //     let minutes = Math.floor(elapsed / 60);
-    
-    //     //円のアニメーション
-    //     let progress = outlineLength - (currentTime / fakeDuration) * outlineLength;
-    //     outline.style.strokeDashoffset = progress;
 
-    //     timeDisplay.textContent = `${minutes}:${seconds}`;
-
-    //     if(currentTime >= fakeDuration) {
-    //         song.currentTime = 0;
-    //         play.src = './svg/play.svg';
-    //     }
-
-    // }
-    
+    //ユーザーからの入力をIDのみに切り取る
     function iframeFormat(studyValue){
-        studyValue += '?enablejsapi=1';
-        console.log(studyValue);
+        
+        studyValue=studyValue.split('v=')[1];
+
+        return studyValue;
     }
+
+    
 }
 
 app();

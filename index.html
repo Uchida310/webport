@@ -34,21 +34,12 @@
                 </div>
             </div>
             <img class="play" src="./svg/play.svg" alt="play">
-            <svg 
-            class="track-outline" 
-            width="453" 
-            height="453" 
-            viewBox="0 0 453 453" 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg">
-                <circle 
-                cx="226.5" 
-                cy="226.5" 
-                r="216.5" stroke="white" 
-                stroke-width="20" 
-                />
+            <svg class="track-outline" width="453" height="453" viewBox="0 0 453 453" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <circle cx="226.5" cy="226.5" r="216.5" stroke="white" stroke-width="20" />
             </svg>
-            <svg class="moving-outline" width="453" height="453" viewBox="0 0 453 453" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="moving-outline" width="453" height="453" viewBox="0 0 453 453" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
                 <circle cx="226.5" cy="226.5" r="216.5" stroke="#018EBA" stroke-width="20" />
             </svg>
             <h3 class="time-display">0:00</h3>
@@ -65,20 +56,16 @@
         </div>
         <div class="sound-picker">
             <div class="study-picker">
-                <div>
-                    <iframe  class="study-video" width="350" height="250" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
+                <div id="iframe1"></div>
                 <div>
                     <input class="study-bgm" type="url" size="10" value="" placeholder="input URL...">
                     <button class="set-study-bgm">Study</button> <br>
                 </div>
             </div>
             <div class="interval-picker">
+                <div id="iframe2"></div>
                 <div>
-                    <iframe class="interval-video" width="350" height="250" src="https://www.youtube.com/embed/f1MMb3R1-qc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div>
-                    <input class="study-bgm" type="url" size="10" value="" placeholder="input URL...">
+                    <input class="interval-bgm" type="url" size="10" value="" placeholder="input URL...">
                     <button class="set-interval-bgm">Interval</button> <br>
                 </div>
             </div>
