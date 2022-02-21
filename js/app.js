@@ -21,6 +21,7 @@ const app = () => {
     const studyTimeButton = document.querySelector('.study-button');
     const defaultTimeButton = document.querySelector('.default-button');
     const setTimeButton = document.querySelector('.set-button');
+    const clearTimeButton = document.querySelector('.clear-button');
 
     //円の長さを取得・・・約1359
     // const outlineLength = outline.getTotalLength();
@@ -67,19 +68,6 @@ const app = () => {
     let player;
     let player2;
 
-
-
-
-    // botan.addEventListener('click', () => {
-    //     botan.classList.toggle('isPlay');
-    //     if(botan.classList.contains('isPlay')){
-    //         player.playVideo();
-    //     }else{
-    //         player.pauseVideo();
-    //     }
-
-    // });
-
     ////////////////////////////////////////////////////
 
     //勉強時間をセット
@@ -114,6 +102,16 @@ const app = () => {
             setCountDisplay.textContent = `${sumCount}`;
         }
     });
+
+    clearTimeButton.addEventListener('click', ()=>{
+        sumTime = 0;
+        sumCount = 0;
+        sumStudy = 0;
+        sumInterval = 0;
+        intervalDisplay.textContent = `${Math.floor(sumInterval / 60000)}`;
+        studyDisplay.textContent = `${Math.floor(sumStudy / 60000)}`;
+        setCountDisplay.textContent = `${sumCount}`;
+    })
 
     //再生動画のロジック
     setStudyVideo.addEventListener('click', () => {
@@ -153,89 +151,82 @@ const app = () => {
         setCountDisplay.textContent = `${sumCount}`;
     });
 
-    play.addEventListener('click', () => {
-        sumTime *= sumCount;
-        timeDisplay.textContent = `${Math.floor(sumTime / 60000)}:
-                                      ${Math.floor(sumTime % 60000)}`;
-
-        this.removeEventListener;
-    }, { once: true });
-
-
-
-    /*
-    //strokeDasharray・・・svgのプロパティ　間隔を指定
-    outline.style.strokeDasharray = outlineLength;
-
-    //strokeDashoffset・・・svgのプロパティ 開始位置を指定
-    outline.style.strokeDashoffset = outlineLength;
-
-    */
-    //クリックされたら関数を実行
-
-    //動画がセットされている時だけ再生ボタンを押せるようにしたい
 
     play.addEventListener('click', () => {
 
-        play.src = './svg/pause.svg';
-        isStudy = true;
-        calcStudy = sumStudy;
-        calcInterval = sumInterval;
-        player.playVideo();
-        //sumTimeがゼロになるまで実行
-        let calcTimer = setInterval(() => {
-            sumTime -= 1000;
-            let seconds = Math.floor(sumTime % 60000 / 1000);
-            let minutes = Math.floor(sumTime / 60000);
-            timeDisplay.textContent = `${minutes}:${seconds}`;
+        if (checkSetIntervalVideo && checkSetStudyVideo &&  sumCount > 0 && sumStudy > 0 && sumInterval > 0) {
+            play.classList.add("noClick");
+            play.src = './svg/pause.svg';
+            isStudy = true;
+            calcStudy = sumStudy;
+            calcInterval = sumInterval;
+            player.playVideo();
+            //sumTimeがゼロになるまで実行
+            let calcTimer = setInterval(() => {
+                sumTime -= 1000;
+                let seconds = Math.floor(sumTime % 60000 / 1000);
+                let minutes = Math.floor(sumTime / 60000);
+                timeDisplay.textContent = `${minutes}:${seconds}`;
 
 
-            //isStudyがアクティブなら
-            if (isStudy && sumCount >= 0) {
-                calcStudy -= 1000;
-                let studySeconds = Math.floor(calcStudy % 60000 / 1000);
-                let studyMinutes = Math.floor(calcStudy / 60000);
-                countStudyDisplay.textContent = `${studyMinutes}:${studySeconds}`;
+                //isStudyがアクティブなら
+                if (isStudy && sumCount >= 0) {
+                    calcStudy -= 1000;
+                    let studySeconds = Math.floor(calcStudy % 60000 / 1000);
+                    let studyMinutes = Math.floor(calcStudy / 60000);
+                    countStudyDisplay.textContent = `${studyMinutes}:${studySeconds}`;
 
-                if (calcStudy <= 0) {
-                    calcStudy = sumStudy;
-                    isInterval = true;
-                    isStudy = false;
-                    calcInterval += 1000;
-                    player.pauseVideo();
-                    player2.playVideo();
+                    if (calcStudy <= 0) {
+                        calcStudy = sumStudy;
+                        isInterval = true;
+                        isStudy = false;
+                        calcInterval += 1000;
+                        player.pauseVideo();
+                        player2.playVideo();
+                    }
                 }
-            }
-            //isIntervalがアクティブなら
-            if (isInterval && sumCount > 0) {
-                calcInterval -= 1000;
-                let intervalSeconds = Math.floor(calcInterval % 60000 / 1000);
-                let intervalMinutes = Math.floor(calcInterval / 60000);
-                countIntervalDisplay.textContent = `${intervalMinutes}:${intervalSeconds}`;
+                //isIntervalがアクティブなら
+                if (isInterval && sumCount > 0) {
+                    calcInterval -= 1000;
+                    let intervalSeconds = Math.floor(calcInterval % 60000 / 1000);
+                    let intervalMinutes = Math.floor(calcInterval / 60000);
+                    countIntervalDisplay.textContent = `${intervalMinutes}:${intervalSeconds}`;
 
-                if (calcInterval <= 0) {
-                    calcInterval = sumInterval;
-                    isInterval = false;
-                    isStudy = true;
-                    sumCount--;
-                    setCountDisplay.textContent = `${sumCount}`;
-                    player2.pauseVideo();
-                    player.playVideo();
+                    if (calcInterval <= 0) {
+                        calcInterval = sumInterval;
+                        isInterval = false;
+                        isStudy = true;
+                        sumCount--;
+                        setCountDisplay.textContent = `${sumCount}`;
+                        player2.pauseVideo();
+                        player.playVideo();
 
+                    }
                 }
-            }
 
-            if (sumTime <= 0) {   //再生時間がゼロになったら
-                clearInterval(calcTimer);
-                play.src = './svg/play.svg';
-                timeDisplay.textContent = `00:00`;
-                player.stopVideo();
-                player2.stopVideo();
-            }
-        }, 1000);
-
+                if (sumTime <= 0) {   //再生時間がゼロになったら
+                    clearInterval(calcTimer);
+                    play.src = './svg/play.svg';
+                    timeDisplay.textContent = `00:00`;
+                    player.stopVideo();
+                    player2.stopVideo();
+                }
+            }, 1000);
+        }
     });
 
+
+
+
+
+    play.addEventListener('click', () => {
+        if (checkSetIntervalVideo && checkSetStudyVideo &&  sumCount > 0 && sumStudy > 0 && sumInterval > 0) {
+            sumTime *= sumCount;
+            timeDisplay.textContent = `${Math.floor(sumTime / 60000)}:
+                                                  ${Math.floor(sumTime % 60000)}`;
+            this.removeEventListener;
+        }
+    });
 
 
 
@@ -249,8 +240,6 @@ const app = () => {
         Value = Value.split('&')[0];
         return Value;
     }
-
-
 }
 
 app();

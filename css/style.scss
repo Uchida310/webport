@@ -5,7 +5,7 @@
 }
 
 body{
-    background-color: #4972a1;
+    background-color: #2E8B57;
 }
 
 .app {
@@ -30,21 +30,14 @@ body{
 }
 
 .player-container {
-    position: relative;
-
-    & svg {
-        position: absolute;
-        height: 50%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(-90deg); /*アニメーションの開始位置を調整*/
-        pointer-events: none; /*svgファイルのhover時のイベントを削除*/
+    & img {
+        border-radius: 50%;
+        max-width: 50%;
     }
 }
 
 .custum-display,
 .count-display {
-    position: absolute;
     text-align: center;
     top: 10%;
     display: flex;
@@ -62,8 +55,6 @@ body{
 
 
 .time-display {
-    position: absolute;
-    bottom: 10%;
     color: white;
     font-size: 50px;
 }
@@ -97,6 +88,11 @@ body{
     color: black;
     background-color: white;
     opacity: 0.8;
+}
+
+//js適用クラス
+.noClick {
+    pointer-events: none;
 }
 
 
