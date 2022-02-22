@@ -5,7 +5,8 @@ const app = () => {
 
     // const outline = document.querySelector('.moving-outline circle') //svgに設定したクラス
     // const sounds = document.querySelectorAll('.sound-picker button');
-
+    //チェック用s
+    let check = 0;
 
     //それぞれの時間を表示するDOMを取得
     const studyDisplay = document.querySelector('.study-display');
@@ -114,35 +115,42 @@ const app = () => {
     })
 
     //再生動画のロジック
+    //iframeを削除させたい
     setStudyVideo.addEventListener('click', () => {
+        if(player){
+            player.destroy();
+        }
         checkSetStudyVideo = true;
         let studyValue = studyURLBox.value;
         studyValue = iframeFormat(studyValue);
         player = new YT.Player('iframe1', {
-            width: 550,
-            height: 450,
+   
             videoId: studyValue,
             playerVars: {
                 'loop': 1,
                 'playlist': studyValue
             }
         });
-    }, { once: true });
+        check++;
+        console.log(check);
+    });
 
     setIntervalVideo.addEventListener('click', () => {
+        if(player2){
+            player2.destroy();
+        }
         checkSetIntervalVideo = true;
         let intervalValue = intervalURLBox.value;
         intervalValue = iframeFormat(intervalValue);
         player2 = new YT.Player('iframe2', {
-            width: 550,
-            height: 450,
+
             videoId: intervalValue,
             playerVars: {
                 'loop': 1,
                 'playlist': intervalValue
             }
         });
-    }, { once: true });
+    });
 
 
     //テスト用ボタン:合計時間を出力する
@@ -161,6 +169,7 @@ const app = () => {
             calcStudy = sumStudy;
             calcInterval = sumInterval;
             player.playVideo();
+            //もし再生中であれば実行したい //再生中でなければ不実行(余裕があれば)
             //sumTimeがゼロになるまで実行
             let calcTimer = setInterval(() => {
                 sumTime -= 1000;
@@ -216,9 +225,6 @@ const app = () => {
     });
 
 
-
-
-
     play.addEventListener('click', () => {
         if (checkSetIntervalVideo && checkSetStudyVideo &&  sumCount > 0 && sumStudy > 0 && sumInterval > 0) {
             sumTime *= sumCount;
@@ -227,6 +233,10 @@ const app = () => {
             this.removeEventListener;
         }
     });
+
+
+    //押すたびに再生中のクラスを付ける
+    // play.addEventListener('click',)
 
 
 
