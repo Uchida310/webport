@@ -73,77 +73,88 @@ const app = () => {
 
     //勉強時間をセット
     intervalTimeButton.addEventListener('click', () => {
-        sumTime += intervalTime;
-        sumInterval += intervalTime;
-        intervalDisplay.textContent = `${Math.floor(sumInterval / 60000)}`;
-        if (sumCount == 0) {
-            sumCount = 1;
-            setCountDisplay.textContent = `${sumCount}`;
+        if (!isStudy && !isInterval) {
+            sumTime += intervalTime;
+            sumInterval += intervalTime;
+            intervalDisplay.textContent = `${Math.floor(sumInterval / 60000)}:00`;
+            if (sumCount == 0) {
+                sumCount = 1;
+                setCountDisplay.textContent = `${sumCount}`;
+            }
         }
     });
 
     studyTimeButton.addEventListener('click', () => {
-        sumTime += studyTime;
-        sumStudy += studyTime;
-        studyDisplay.textContent = `${Math.floor(sumStudy / 60000)}`;
-        if (sumCount == 0) {
-            sumCount = 1;
-            setCountDisplay.textContent = `${sumCount}`;
+        if (!isStudy && !isInterval) {
+            sumTime += studyTime;
+            sumStudy += studyTime;
+            studyDisplay.textContent = `${Math.floor(sumStudy / 60000)}:00`;
+            if (sumCount == 0) {
+                sumCount = 1;
+                setCountDisplay.textContent = `${sumCount}`;
+            }
         }
     });
 
     defaultTimeButton.addEventListener('click', () => {
-        sumTime += podomoroStudyTime + podomoroIntervalTime;
-        sumInterval += podomoroIntervalTime;
-        sumStudy += podomoroStudyTime;
-        intervalDisplay.textContent = `${Math.floor(sumInterval / 60000)}`;
-        studyDisplay.textContent = `${Math.floor(sumStudy / 60000)}`;
-        if (sumCount == 0) {
-            sumCount = 1;
+        if (!isStudy && !isInterval) {
+            sumTime += podomoroStudyTime + podomoroIntervalTime;
+            sumInterval += podomoroIntervalTime;
+            sumStudy += podomoroStudyTime;
+            intervalDisplay.textContent = `${Math.floor(sumInterval / 60000)}:00`;
+            studyDisplay.textContent = `${Math.floor(sumStudy / 60000)}:00`;
+            if (sumCount == 0) {
+                sumCount = 1;
+                setCountDisplay.textContent = `${sumCount}`;
+            }
+        }
+    });
+
+    clearTimeButton.addEventListener('click', () => {
+        if (!isStudy && !isInterval) {
+            sumTime = 0;
+            sumCount = 0;
+            sumStudy = 0;
+            sumInterval = 0;
+            intervalDisplay.textContent = `${Math.floor(sumInterval / 60000)}`;
+            studyDisplay.textContent = `${Math.floor(sumStudy / 60000)}`;
             setCountDisplay.textContent = `${sumCount}`;
         }
     });
 
-    clearTimeButton.addEventListener('click', ()=>{
-        sumTime = 0;
-        sumCount = 0;
-        sumStudy = 0;
-        sumInterval = 0;
-        intervalDisplay.textContent = `${Math.floor(sumInterval / 60000)}`;
-        studyDisplay.textContent = `${Math.floor(sumStudy / 60000)}`;
-        setCountDisplay.textContent = `${sumCount}`;
-    })
+    setTimeButton.addEventListener('click', () => {
+        if (!isStudy && !isInterval) {
+            sumCount++;
+            setCountDisplay.textContent = `${sumCount}`;
+        }
+    });
 
     //再生動画のロジック
     //iframeを削除させたい
     setStudyVideo.addEventListener('click', () => {
-        if(player){
+        if (player) {
             player.destroy();
         }
         checkSetStudyVideo = true;
         let studyValue = studyURLBox.value;
         studyValue = iframeFormat(studyValue);
         player = new YT.Player('iframe1', {
-   
             videoId: studyValue,
             playerVars: {
                 'loop': 1,
                 'playlist': studyValue
             }
         });
-        check++;
-        console.log(check);
     });
 
     setIntervalVideo.addEventListener('click', () => {
-        if(player2){
+        if (player2) {
             player2.destroy();
         }
         checkSetIntervalVideo = true;
         let intervalValue = intervalURLBox.value;
         intervalValue = iframeFormat(intervalValue);
         player2 = new YT.Player('iframe2', {
-
             videoId: intervalValue,
             playerVars: {
                 'loop': 1,
@@ -153,22 +164,22 @@ const app = () => {
     });
 
 
-    //テスト用ボタン:合計時間を出力する
-    setTimeButton.addEventListener('click', () => {
-        sumCount++;
-        setCountDisplay.textContent = `${sumCount}`;
-    });
+
 
 
     play.addEventListener('click', () => {
-
-        if (checkSetIntervalVideo && checkSetStudyVideo &&  sumCount > 0 && sumStudy > 0 && sumInterval > 0) {
+        if (checkSetIntervalVideo && checkSetStudyVideo && sumCount > 0 && sumStudy > 0 && sumInterval > 0) {
             play.classList.add("noClick");
             play.src = './svg/pause.svg';
             isStudy = true;
             calcStudy = sumStudy;
             calcInterval = sumInterval;
             player.playVideo();
+
+            countStudyDisplay.textContent = `${Math.floor(sumStudy / 60000)}:00`;
+            countIntervalDisplay.textContent = `${Math.floor(sumInterval / 60000)}:00`;
+
+
             //もし再生中であれば実行したい //再生中でなければ不実行(余裕があれば)
             //sumTimeがゼロになるまで実行
             let calcTimer = setInterval(() => {
@@ -190,6 +201,7 @@ const app = () => {
                         isInterval = true;
                         isStudy = false;
                         calcInterval += 1000;
+                        countStudyDisplay.textContent = `${Math.floor(sumStudy / 60000)}:00`;
                         player.pauseVideo();
                         player2.playVideo();
                     }
@@ -207,6 +219,7 @@ const app = () => {
                         isStudy = true;
                         sumCount--;
                         setCountDisplay.textContent = `${sumCount}`;
+                        countIntervalDisplay.textContent = `${Math.floor(sumInterval / 60000)}:00`;
                         player2.pauseVideo();
                         player.playVideo();
 
@@ -219,6 +232,7 @@ const app = () => {
                     timeDisplay.textContent = `00:00`;
                     player.stopVideo();
                     player2.stopVideo();
+                    window.alert("お疲れさまでした！ページを閉じるかリロードして下さい！");
                 }
             }, 1000);
         }
@@ -226,22 +240,13 @@ const app = () => {
 
 
     play.addEventListener('click', () => {
-        if (checkSetIntervalVideo && checkSetStudyVideo &&  sumCount > 0 && sumStudy > 0 && sumInterval > 0) {
+        if (checkSetIntervalVideo && checkSetStudyVideo && sumCount > 0 && sumStudy > 0 && sumInterval > 0) {
             sumTime *= sumCount;
             timeDisplay.textContent = `${Math.floor(sumTime / 60000)}:
                                                   ${Math.floor(sumTime % 60000)}`;
             this.removeEventListener;
         }
     });
-
-
-    //押すたびに再生中のクラスを付ける
-    // play.addEventListener('click',)
-
-
-
-
-
 
     //ユーザーからの入力をIDのみに切り取り、ループ再生オプションを追加
     function iframeFormat(Value) {
