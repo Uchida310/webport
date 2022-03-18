@@ -59,24 +59,43 @@ body{
     font-size: 50px;
 }
 
-.time-select p {
-   font-size: 1.2vw;
-}
-.time-select button {
-    
-    color: white;
-    width: 30%;
-    height: 10%;
-    background: none;
-    border: 2px solid white;
-    cursor: pointer; /*要素にカーソルがある場合*/
-    border-radius: 5px;
-    font-size: 20px;
-    transition: all 0.5s ease; /*下記に説明を記述*/
-    background-color: #75b300;
-    padding: 10px;
-}
+.time-select {
+    & p {
+        font-size: 1.2vw;
+    }
 
+    & button {
+        color: white;
+        width: 30%;
+        height: 10%;
+        background: none;
+        border: 2px solid white;
+        cursor: pointer; /*要素にカーソルがある場合*/
+        border-radius: 5px;
+        font-size: 20px;
+        transition: all 0.5s ease; /*下記に説明を記述*/
+        background-color: #75b300;
+        padding: 10px;
+
+        &:nth-last-child(1){
+            border: 2px solid  #75b300;
+            background-color: #f4f5f7;
+            color: #2a6c50;
+
+            &:hover {
+                border: 2px solid  #f4f5f7;
+                background-color: #75b300;
+                color: #f4f5f7;
+            }
+        }
+
+        &:hover {
+            border: 2px solid  #75b300;
+            color: #2a6c50;
+            background-color: #f4f5f7;
+        }
+    }
+}
 /*
 *transition・・・アニメーション設定
 *all・・・どのプロパティにアニメーションを適用するか
@@ -84,22 +103,6 @@ body{
 *ease・・・変化の進行度合いeaseがデフォルト
 */
 
-.time-select button:nth-last-child(1){
-    border: 2px solid  #75b300;
-    background-color: #f4f5f7;
-    color: #2a6c50;
-}
-.time-select button:hover {
-    border: 2px solid  #75b300;
-    color: #2a6c50;
-    background-color: #f4f5f7;
-}
-
-.time-select button:nth-last-child(1):hover{
-    border: 2px solid  #f4f5f7;
-    background-color: #75b300;
-    color: #f4f5f7;
-}
 
 iframe {
     width: 100%;
