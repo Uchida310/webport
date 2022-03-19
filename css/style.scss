@@ -5,7 +5,7 @@
 }
 
 body{
-    background-color: #2E8B57;
+    
 }
 
 .app {
@@ -13,6 +13,7 @@ body{
     display: flex; /*要素横並び*/
     justify-content: space-evenly; /*要素を均等に振り分ける*/
     align-items: center;
+    background-color: #2E8B57;
 }
 
 
@@ -103,6 +104,32 @@ body{
 *ease・・・変化の進行度合いeaseがデフォルト
 */
 
+
+////////使用方法//////
+
+.how-to-use {
+    background-color:   #DDFFDD;
+    & h1 {
+        text-align: center;
+        padding: 20px 0;
+        
+    }
+    .how-to-text {
+        margin-left: 20%;
+
+        & h3 {
+            margin-top: 20px;
+        }
+
+        & span {
+            color: red;
+            font-weight: bold;
+        }
+    }
+}
+
+
+/////////////////////
 
 iframe {
     width: 100%;

@@ -2,52 +2,31 @@
 * {
   margin: 0;
   padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-body {
-  background-color: #2E8B57;
+  box-sizing: border-box;
 }
 
 .app {
   height: 100vh;
   /*ビューポートサイズに対する割合*/
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   /*要素横並び*/
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
+  justify-content: space-evenly;
   /*要素を均等に振り分ける*/
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
+  background-color: #2E8B57;
 }
 
 .time-select,
 .sound-picker,
 .player-container {
   height: 80%;
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  flex: 1;
   /*要素を均等に配分*/
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   /*要素を縦に*/
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .player-container img {
@@ -59,12 +38,9 @@ body {
 .count-display {
   text-align: center;
   top: 10%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   color: white;
 }
-
 .custum-display p,
 .count-display p {
   font-size: 1.3em;
@@ -83,7 +59,6 @@ body {
 .time-select p {
   font-size: 1.2vw;
 }
-
 .time-select button {
   color: white;
   width: 30%;
@@ -94,11 +69,25 @@ body {
   /*要素にカーソルがある場合*/
   border-radius: 5px;
   font-size: 20px;
-  -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   /*下記に説明を記述*/
   background-color: #75b300;
   padding: 10px;
+}
+.time-select button:nth-last-child(1) {
+  border: 2px solid #75b300;
+  background-color: #f4f5f7;
+  color: #2a6c50;
+}
+.time-select button:nth-last-child(1):hover {
+  border: 2px solid #f4f5f7;
+  background-color: #75b300;
+  color: #f4f5f7;
+}
+.time-select button:hover {
+  border: 2px solid #75b300;
+  color: #2a6c50;
+  background-color: #f4f5f7;
 }
 
 /*
@@ -107,22 +96,22 @@ body {
 *0.5・・・アニメーションの時間
 *ease・・・変化の進行度合いeaseがデフォルト
 */
-.time-select button:nth-last-child(1) {
-  border: 2px solid  #75b300;
-  background-color: #f4f5f7;
-  color: #2a6c50;
+.how-to-use {
+  background-color: #DDFFDD;
 }
-
-.time-select button:hover {
-  border: 2px solid  #75b300;
-  color: #2a6c50;
-  background-color: #f4f5f7;
+.how-to-use h1 {
+  text-align: center;
+  padding: 20px 0;
 }
-
-.time-select button:nth-last-child(1):hover {
-  border: 2px solid  #f4f5f7;
-  background-color: #75b300;
-  color: #f4f5f7;
+.how-to-use .how-to-text {
+  margin-left: 20%;
+}
+.how-to-use .how-to-text h3 {
+  margin-top: 20px;
+}
+.how-to-use .how-to-text span {
+  color: red;
+  font-weight: bold;
 }
 
 iframe {
